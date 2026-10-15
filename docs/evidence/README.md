@@ -17,3 +17,7 @@ The source and artwork provenance for all three images is recorded in [`ATTRIBUT
 - [`figstrike-windows-verification.json`](figstrike-windows-verification.json) and [`figstrike-windows-desktop-status.json`](figstrike-windows-desktop-status.json): exact CLI and native process/window checks.
 
 These captures came from code commit `f829325f703f580cedad802cb162fdf45036feeb`; the small artifact originally retained them for one day. Their provenance and licences are listed in [`ATTRIBUTION.md`](../../ATTRIBUTION.md).
+
+## Windows native edit and persistence
+
+[Green run 38760286187](https://github.com/Gerbzz/FigStrike/actions/runs/38760286187) built the complete native editor at application commit `f8358cb3918c6f986e2c0bb4de0ff9f55b07fe87`. Through the running editor's local control channel, it created a file, frame and rectangle, then routed `ArrowRight` through the UI shortcut handler. The selected rectangle moved from x=50 to x=51 while y=60, width=140 and height=90 stayed fixed. The editor saved [`figstrike-windows-native-edited.figcraft`](figstrike-windows-native-edited.figcraft), terminated, and a second native process reopened it. [`figstrike-windows-native-edit-verification.json`](figstrike-windows-native-edit-verification.json) records matching persisted name and geometry. I visually inspected the unmodified 1024x768 [`reopened editor screenshot`](figstrike-windows-native-edited.png); the frame and gray rectangle are visible. This proves one keyboard-driven native edit and file round trip, not general pointer editing or complex documents.
