@@ -45,12 +45,12 @@ jobs:
         run: |
           python scripts/ci_windows_workflow.py target/debug/figcraft-cli.exe "$env:RUNNER_TEMP/figstrike-windows"
           if ($LASTEXITCODE -ne 0) { throw 'Windows design workflow failed' }
-      - name: Launch the native editor with the saved design and attempt capture
-        shell: pwsh
-        run: ./scripts/ci_windows_desktop.ps1 -Executable target/debug/figcraft.exe -Project "$env:RUNNER_TEMP/figstrike-windows/created.figcraft" -Output "$env:RUNNER_TEMP/figstrike-windows"
       - name: Test Windows CLI integration
         shell: pwsh
         run: cargo test --locked -p figcraft-cli --tests
+      - name: Launch the native editor with the saved design and attempt capture
+        shell: pwsh
+        run: ./scripts/ci_windows_desktop.ps1 -Executable target/debug/figcraft.exe -Project "$env:RUNNER_TEMP/figstrike-windows/created.figcraft" -Output "$env:RUNNER_TEMP/figstrike-windows"
       - name: Preserve only small Windows design evidence
         if: always()
         uses: actions/upload-artifact@v4
