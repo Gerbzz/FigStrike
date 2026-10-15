@@ -1,0 +1,82 @@
+name: FigStrike source and workflow smoke
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-and-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      CARGO_BUILD_JOBS: "2"
+      CARGO_INCREMENTAL: "0"
+      CARGO_PROFILE_DEV_DEBUG: "0"
+      RUST_BACKTRACE: "1"
+      LIBGL_ALWAYS_SOFTWARE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: Install native window and software graphics libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libxkbcommon-dev libwayland-dev libx11-dev libxrandr-dev libxi-dev \
+            libgl1-mesa-dev libgtk-3-dev libvulkan1 mesa-vulkan-drivers \
+            xvfb imagemagick
+      - name: Check format and attribution
+        run: |
+          cargo fmt --all -- --check
+          cargo run --locked -q -p xtask -- assets
+      - name: Test document engine, native editor UI and CLI
+        run: |
+          cargo test --locked -p figcraft-engine -p figcraft-ui-egui --lib
+          cargo test --locked -p figcraft-cli --tests
+      - name: Build complete native editor and CLI
+        run: cargo build --locked -p figcraft -p figcraft-cli
+      - name: Create, reopen and export a design document
+        run: |
+          mkdir -p smoke
+          target/debug/figcraft --version | tee smoke/app-version.txt
+          target/debug/figcraft-cli --version | tee smoke/cli-version.txt
+          target/debug/figcraft-cli run .github/figstrike-smoke.json --out smoke/created.figcraft > smoke/commands.jsonl
+          target/debug/figcraft-cli info smoke/created.figcraft --json > smoke/created-info.json
+          target/debug/figcraft-cli export smoke/created.figcraft -o smoke/created.png
+          target/debug/figcraft-cli export smoke/created.figcraft -o smoke/created.svg
+          target/debug/figcraft-cli export smoke/created.figcraft -o smoke/created.pdf
+          target/debug/figcraft-cli info examples/ridgeline-app.figcraft --json > smoke/ridgeline-info.json
+          target/debug/figcraft-cli export examples/ridgeline-app.figcraft -o smoke/ridgeline.png
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from xml.etree import ElementTree
+          lines = [json.loads(line) for line in Path('smoke/commands.jsonl').read_text().splitlines()]
+          assert len(lines) == 3 and all(line['ok'] for line in lines), lines
+          assert Path('smoke/created.figcraft').stat().st_size > 100
+          png = Path('smoke/created.png').read_bytes()
+          assert png.startswith(b'\x89PNG\r\n\x1a\n') and len(png) > 1000
+          assert Path('smoke/created.pdf').read_bytes().startswith(b'%PDF-')
+          assert ElementTree.parse('smoke/created.svg').getroot().tag.endswith('svg')
+          assert Path('smoke/ridgeline.png').stat().st_size > 1000
+          PY
+      - name: Capture real first-run window
+        run: |
+          xvfb-run -a -s '-screen 0 1600x1000x24' bash -euo pipefail -c '
+            export XDG_CONFIG_HOME="$PWD/smoke/config"
+            target/debug/figcraft > smoke/figstrike-ui.log 2>&1 & app_pid=$!
+            trap "kill $app_pid 2>/dev/null || true" EXIT
+            sleep 12
+            kill -0 $app_pid
+            import -window root smoke/figstrike-first-run.png
+          '
+          test "$(identify -format '%k' smoke/figstrike-first-run.png)" -gt 20
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: figstrike-workflow-evidence
+          path: smoke/
+          retention-days: 7
