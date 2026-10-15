@@ -10,7 +10,7 @@ The full native [FigCraft application](https://github.com/storytold/figcraft) is
 
 - Independent public root history, with the restricted ArtCraft artwork removed *before* that root commit. Upstream source provenance is pinned above, and NOTICE and ATTRIBUTION.md retain software and asset credit.
 - Existing approved PWDS bitmap, copied byte for byte (SHA-256 `B4C19554261C06EFCA0EE81879BC9CCCAFBEF7FDE84E92328354324E39670C18`) into `assets/branding/`; its separate terms are explicit.
-- FigStrike home header and About panel with that logo, version and upstream credit. First launch now opens the home screen as intended. Desktop title, Windows version resource, user config path, help link, CLI banner and selected menus identify FigStrike.
+- FigStrike home header and About panel with that logo, version and upstream credit. Normal launches now open the home screen; explicit files and invite links go directly to the editor. Desktop title, Windows version resource, user config path, help link, CLI banner and selected menus identify FigStrike.
 - Native `.figcraft` files, command identifiers, Rust package names and CLI executable names stay compatible with upstream files and scripts. The original permissively licensed chameleon icon remains as an inherited app icon, with attribution.
 - Upstream release workflows and packaging removed because they contained original product identity and installer identifiers. No release or installer is claimed.
 

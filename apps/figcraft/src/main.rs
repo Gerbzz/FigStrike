@@ -160,14 +160,14 @@ fn main() -> eframe::Result {
     // default, never a build from source unless asked).
     session.live.links = figcraft_collab_net::links::system();
     session.invite_links_startup();
-    // A first run (no settings kept yet, nothing to open) starts on the home screen, with its
-    // tips and templates; later runs start in a new file.
-    let first_run = svc.prefs.is_none() && args.join.is_none();
-    if session.docs.is_empty() && !first_run {
+    // A normal launch opens the branded home screen, with recent files and templates.
+    // Direct file opens and invite links continue straight into the editor.
+    let show_home = args.files.is_empty() && args.join.is_none();
+    if session.docs.is_empty() && !show_home {
         let _ = session.execute("file.new", &json!({}));
     }
     let mut fig = FigApp::new(session, Box::new(svc));
-    fig.ui.home = first_run && args.files.is_empty();
+    fig.ui.home = show_home;
     fig.note_recovered(recovered.copies);
     if let Some(link) = &args.join {
         figcraft_ui_egui::live::open_invite(&mut fig, link);
