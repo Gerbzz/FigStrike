@@ -2,6 +2,15 @@ name: FigStrike source and workflow smoke
 
 on:
   workflow_dispatch:
+    inputs:
+      scope:
+        description: Verification scope
+        required: true
+        default: full
+        type: choice
+        options:
+          - full
+          - startup
 
 permissions:
   contents: read
