@@ -2,6 +2,15 @@ name: FigStrike source and workflow smoke
 
 on:
   workflow_dispatch:
+    inputs:
+      scope:
+        description: Verification scope
+        required: true
+        default: full
+        type: choice
+        options:
+          - full
+          - startup
 
 permissions:
   contents: read
@@ -25,20 +34,27 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            libxkbcommon-dev libwayland-dev libx11-dev libxrandr-dev libxi-dev \
+            libxkbcommon-dev libxkbcommon-x11-dev libwayland-dev libx11-dev libxrandr-dev libxi-dev \
             libgl1-mesa-dev libgtk-3-dev libvulkan1 mesa-vulkan-drivers \
             xvfb imagemagick poppler-utils
       - name: Check format and attribution
+        if: ${{ inputs.scope != 'startup' }}
         run: |
           cargo fmt --all -- --check
           cargo run --locked -q -p xtask -- assets
       - name: Test document engine, native editor UI and CLI
+        if: ${{ inputs.scope != 'startup' }}
         run: |
           cargo test --locked -p figcraft-engine -p figcraft-ui-egui --lib
           cargo test --locked -p figcraft-cli --tests
       - name: Build complete native editor and CLI
+        if: ${{ inputs.scope != 'startup' }}
         run: cargo build --locked -p figcraft -p figcraft-cli
+      - name: Build native editor for startup capture
+        if: ${{ inputs.scope == 'startup' }}
+        run: cargo build --locked -p figcraft
       - name: Create, reopen and export a design document
+        if: ${{ inputs.scope != 'startup' }}
         run: |
           mkdir -p smoke
           target/debug/figcraft --version | tee smoke/app-version.txt
@@ -77,7 +93,7 @@ jobs:
             target/debug/figcraft > smoke/figstrike-ui.log 2>&1 & app_pid=$!
             trap "kill $app_pid 2>/dev/null || true" EXIT
             sleep 12
-            kill -0 $app_pid
+            if ! kill -0 "$app_pid"; then cat smoke/figstrike-ui.log; exit 1; fi
             import -window root smoke/figstrike-first-run.png
           '
           test "$(identify -format '%k' smoke/figstrike-first-run.png)" -gt 20
