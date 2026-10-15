@@ -76,7 +76,8 @@ pub(crate) fn tab_strip<T: Copy + PartialEq>(ui: &mut egui::Ui, t: &Tokens, tabs
 
 /// About ▸ About: the logo, version, blurb and links.
 fn about_body(ui: &mut egui::Ui, t: &Tokens) {
-    crate::brand::header(ui, &format!("Version {VERSION}  |  Design and prototyping"));
+    let version = trf("Version {version}", &[("version", &VERSION)]);
+    crate::brand::header(ui, &format!("{version}  |  Design and prototyping"));
     ui.add_space(12.0);
     ui.label("FigStrike is a Rust interface design and prototyping application.");
     ui.add_space(8.0);
@@ -118,7 +119,7 @@ pub fn show(app: &mut FigApp, ctx: &Context) {
     let t = Tokens::get(ctx);
     if app.ui.about {
         let mut open = true;
-        window("About FigStrike", ctx).open(&mut open).show(ctx, |ui| {
+        window(tr("About FigStrike"), ctx).open(&mut open).show(ctx, |ui| {
             ui.set_width(ABOUT_WIDTH);
             tab_strip(ui, &t, &AboutTab::ALL, AboutTab::label, &mut app.ui.about_tab);
             ui.add_space(12.0);
@@ -158,7 +159,7 @@ pub fn show(app: &mut FigApp, ctx: &Context) {
             }
             // Where the app registers itself as the opener of invite links (Windows).
             if let Some(on) = app.session.invite_links_on() {
-                if crate::widgets::checkbox(ui, on, "Open invite links in FigStrike") {
+                if crate::widgets::checkbox(ui, on, tr("Open invite links in FigStrike")) {
                     app.run("collab.registerLinks", json!({"on": !on}));
                 }
                 crate::widgets::label(
@@ -184,7 +185,7 @@ pub fn show(app: &mut FigApp, ctx: &Context) {
                     app.run("pref.publishServer", json!({"url": url}));
                 }
                 let usual = prefs.publish_server == figcraft_engine::live::DEFAULT_SERVER;
-                if crate::widgets::button(ui, tr("Reset"), false, !usual).on_hover_text("Back to the FigStrike server").clicked() {
+                if crate::widgets::button(ui, tr("Reset"), false, !usual).on_hover_text(tr("Back to the FigStrike server")).clicked() {
                     app.run("pref.publishServer", json!({}));
                 }
             });
