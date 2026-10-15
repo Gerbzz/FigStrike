@@ -1,0 +1,2 @@
+# Test-only pure-Python PDF text inspector; wheel is 310 KB, BSD-3-Clause.
+pypdf==5.8.0 --hash=sha256:bfe861285cd2f79cceecefde2d46901e4ee992a9f4b42c56548c4a6e9236a0d1
