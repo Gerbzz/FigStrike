@@ -1,0 +1,51 @@
+name: FigStrike Windows native edit proof
+
+on:
+  push:
+    branches: [feature/figstrike-workflow-evidence]
+    paths:
+      - .github/workflows/figstrike-windows-native-edit.yml
+      - scripts/ci_windows_native_edit.py
+      - apps/**
+      - crates/**
+      - Cargo.toml
+      - Cargo.lock
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-edit-roundtrip:
+    if: github.repository == 'Gerbzz/FigStrike'
+    runs-on: windows-2025
+    timeout-minutes: 55
+    env:
+      CARGO_BUILD_JOBS: '2'
+      CARGO_INCREMENTAL: '0'
+      CARGO_PROFILE_DEV_DEBUG: '0'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Build native editor
+        shell: pwsh
+        run: cargo build --locked -p figcraft
+      - name: Create, keyboard edit, save, reopen, and inspect in native Windows editor
+        shell: pwsh
+        run: |
+          python scripts/ci_windows_native_edit.py target/debug/figcraft.exe "$env:RUNNER_TEMP/figstrike-native-edit"
+          if ($LASTEXITCODE -ne 0) { throw 'FigStrike native edit round trip failed' }
+      - name: Preserve small native editing evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: figstrike-windows-native-edit-evidence
+          path: |
+            ${{ runner.temp }}/figstrike-native-edit/native-edited.figcraft
+            ${{ runner.temp }}/figstrike-native-edit/native-edited.png
+            ${{ runner.temp }}/figstrike-native-edit/native-edit-verification.json
+            ${{ runner.temp }}/figstrike-native-edit/native-first-launch.log
+            ${{ runner.temp }}/figstrike-native-edit/native-reopen.log
+          retention-days: 1
+          if-no-files-found: ignore
