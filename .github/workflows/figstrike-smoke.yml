@@ -88,6 +88,7 @@ jobs:
           test "$(identify -format '%k' smoke/ridgeline.png)" -gt 20
       - name: Capture real first-run window
         run: |
+          mkdir -p smoke
           xvfb-run -a -s '-screen 0 1600x1000x24' bash -euo pipefail -c '
             export XDG_CONFIG_HOME="$PWD/smoke/config"
             target/debug/figcraft > smoke/figstrike-ui.log 2>&1 & app_pid=$!

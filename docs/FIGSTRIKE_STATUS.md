@@ -16,7 +16,11 @@ The full native [FigCraft application](https://github.com/storytold/figcraft) is
 
 ## Verification
 
-Pending the bounded public Ubuntu workflow: Rust format, attribution, engine/UI tests, desktop and CLI build, native file write/reopen, PNG/SVG/PDF export and first-run screenshot. This repository was not compiled on the local C: drive because another suite task owns that build slot and available disk must stay above 20 GiB.
+- [First hosted run](https://github.com/Gerbzz/FigStrike/actions/runs/38732876222) exposed four UI regressions from the new home header: three tests counted the persistent logo or clicked a template button below the fold, and one found obsolete localization keys. The home layout and catalogs were corrected before the next run.
+- [Second hosted run](https://github.com/Gerbzz/FigStrike/actions/runs/38734789749) passed format and asset attribution, 868 engine tests (2 ignored), 329 UI tests (1 ignored), and 17 CLI integration tests. The full desktop and CLI binaries built. A command script created a text frame and auto layout, saved a `.figcraft` document, reopened it in a separate CLI process, and exported PNG, SVG and PDF. The PDF retained selectable text (`pdftotext` found “Hello from FigStrike”). The CLI also reopened and exported the supplied Ridgeline design. I inspected both PNG exports: the new text is legible and the Ridgeline screens and artwork render. The only failed step was Xvfb startup because the Ubuntu runner lacked `libxkbcommon-x11.so`; the app exited before opening a window.
+- [Focused startup rerun](https://github.com/Gerbzz/FigStrike/actions/runs/38737866307) installed the missing X11 library and built only the desktop binary. Its screenshot step stopped before launch because the workflow's startup-only path had not created its output directory. The capture step now creates that directory itself; a further startup-only run is pending.
+
+No Rust compilation ran on the local C: drive because another suite task owns that build slot and free space must stay above 20 GiB. Hosted runs use public standard Ubuntu runners, read-only repository permission and bounded job timeouts.
 
 ## Known gaps
 
