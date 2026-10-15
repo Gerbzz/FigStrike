@@ -1,0 +1,88 @@
+{
+  "platform": "windows-2025",
+  "method": "native desktop control channel with UI keyboard shortcut",
+  "file": "native-edited.figcraft",
+  "fileBytes": 3624,
+  "frameId": 2,
+  "rectangleId": 3,
+  "before": {
+    "absoluteBounds": {
+      "height": 90.0,
+      "width": 140.0,
+      "x": 50.0,
+      "y": 60.0
+    },
+    "constraints": {
+      "horizontal": "left",
+      "vertical": "top"
+    },
+    "fills": [
+      {
+        "color": "#D9D9D9",
+        "type": "solid"
+      }
+    ],
+    "height": 90.0,
+    "id": 3,
+    "name": "Keyboard-nudged rectangle",
+    "type": "RECTANGLE",
+    "width": 140.0,
+    "x": 50.0,
+    "y": 60.0
+  },
+  "edited": {
+    "absoluteBounds": {
+      "height": 90.0,
+      "width": 140.0,
+      "x": 51.0,
+      "y": 60.0
+    },
+    "constraints": {
+      "horizontal": "left",
+      "vertical": "top"
+    },
+    "fills": [
+      {
+        "color": "#D9D9D9",
+        "type": "solid"
+      }
+    ],
+    "height": 90.0,
+    "id": 3,
+    "name": "Keyboard-nudged rectangle",
+    "type": "RECTANGLE",
+    "width": 140.0,
+    "x": 51.0,
+    "y": 60.0
+  },
+  "reopened": {
+    "absoluteBounds": {
+      "height": 90.0,
+      "width": 140.0,
+      "x": 51.0,
+      "y": 60.0
+    },
+    "constraints": {
+      "horizontal": "left",
+      "vertical": "top"
+    },
+    "fills": [
+      {
+        "color": "#D9D9D9",
+        "type": "solid"
+      }
+    ],
+    "height": 90.0,
+    "id": 3,
+    "name": "Keyboard-nudged rectangle",
+    "type": "RECTANGLE",
+    "width": 140.0,
+    "x": 51.0,
+    "y": 60.0
+  },
+  "screenshot": {
+    "width": 1024,
+    "height": 768,
+    "bytes": 66017
+  }
+}
