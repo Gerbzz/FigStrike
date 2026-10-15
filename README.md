@@ -16,9 +16,9 @@ FigStrike is an independent early-alpha application built on a complete Rust des
 - **Keep your files:** the native `.figcraft` format and command IDs remain compatible with the underlying open-source application. PNG, SVG, and PDF exports have been exercised on synthetic documents.
 - **Automate the same engine:** the desktop UI, CLI, and local JSON control channel dispatch shared commands. See the [CLI guide](docs/cli.md) and [control protocol](docs/control-protocol.md).
 
-![FigStrike Windows CLI export of the synthetic Ridgeline design](docs/evidence/figstrike-windows-ridgeline.png)
+![One mobile screen cropped from the FigStrike Ridgeline CLI export](docs/evidence/figstrike-windows-ridgeline-mobile-crop.png)
 
-*A Windows CLI export of the included synthetic Ridgeline example. It demonstrates rendering of multiple interface screens; it is not a capture of the editor UI. Artwork and source attribution are in [ATTRIBUTION.md](ATTRIBUTION.md).*
+*A pixel-exact crop of one mobile screen from the Windows CLI export of the included synthetic Ridgeline example. The [uncropped multi-artboard export](docs/evidence/figstrike-windows-ridgeline.png) is retained as provenance. This is a document render, not a capture of the editor UI. Artwork and source attribution are in [ATTRIBUTION.md](ATTRIBUTION.md).*
 
 ## What has been verified
 
