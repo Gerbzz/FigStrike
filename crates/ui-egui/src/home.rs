@@ -259,10 +259,6 @@ fn recents(app: &mut FigApp, ui: &mut Ui, t: &Tokens) {
         }
     });
     opened_join(app);
-    if !app.session.prefs.getting_started_dismissed {
-        ui.add_space(28.0);
-        getting_started(app, ui, t);
-    }
     if !app.session.docs.is_empty() {
         subheading(ui, t, tr("Open files"));
         let mut switch = None;
@@ -281,15 +277,23 @@ fn recents(app: &mut FigApp, ui: &mut Ui, t: &Tokens) {
     }
     let recents = app.session.prefs.recent_files.clone();
     if recents.is_empty() {
-        // A first run: nothing to reopen yet, so offer something to start from.
+        // Put templates above the longer tips so a new design is in view on launch.
         subheading(ui, t, tr("Start from a template"));
-        let shown: Vec<&Template> = TEMPLATES.iter().take(FIRST_RUN).collect();
-        template_grid(app, ui, t, &shown);
-        ui.add_space(12.0);
         if widgets::button(ui, tr("See all templates"), false, true).clicked() {
             app.ui.home_view.section = Section::Templates;
         }
+        ui.add_space(12.0);
+        let shown: Vec<&Template> = TEMPLATES.iter().take(FIRST_RUN).collect();
+        template_grid(app, ui, t, &shown);
+        if !app.session.prefs.getting_started_dismissed {
+            ui.add_space(28.0);
+            getting_started(app, ui, t);
+        }
         return;
+    }
+    if !app.session.prefs.getting_started_dismissed {
+        ui.add_space(28.0);
+        getting_started(app, ui, t);
     }
     crate::home_recents::section(app, ui, t);
 }

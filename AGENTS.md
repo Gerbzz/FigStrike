@@ -43,6 +43,7 @@ code.
   redraws of their icons. Breaking this rule is the worst thing you can do in this repo.
 - Every image, icon, font or other asset must be one of:
   - original work created for FigCraft by a contributor (licensed MIT OR Apache-2.0);
+  - the approved company-owned PWDS mark with its separate brand terms;
   - OSI open source;
   - public domain / CC0;
   - Creative Commons with redistribution allowed.

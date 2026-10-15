@@ -1,0 +1,14 @@
+{
+  "platform": "windows-2025",
+  "created_nodes": 3,
+  "created_pages": 1,
+  "export_bytes": {
+    "png": 16033,
+    "svg": 7081,
+    "pdf": 15635
+  },
+  "pdf_pages": 1,
+  "pdf_selectable_text": true,
+  "sample_nodes": 349,
+  "sample_variables": 17
+}

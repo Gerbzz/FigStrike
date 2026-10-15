@@ -3,15 +3,16 @@
 use egui::{Color32, Rect, Sense, TextureHandle, TextureOptions, pos2, vec2};
 
 static PWDS_MARK: &[u8] = include_bytes!("../../../assets/branding/PWDS-logo.png");
+pub(crate) const MARK_ID: &str = "figstrike-pwds-mark";
 
 fn mark(ctx: &egui::Context) -> Option<TextureHandle> {
-    let id = egui::Id::new("figstrike-pwds-mark");
+    let id = egui::Id::new(MARK_ID);
     if let Some(texture) = ctx.data(|data| data.get_temp::<TextureHandle>(id)) {
         return Some(texture);
     }
     let bitmap = image::load_from_memory_with_format(PWDS_MARK, image::ImageFormat::Png).ok()?.to_rgba8();
     let pixels = egui::ColorImage::from_rgba_unmultiplied([bitmap.width() as usize, bitmap.height() as usize], bitmap.as_raw());
-    let texture = ctx.load_texture("figstrike-pwds-mark", pixels, TextureOptions::LINEAR);
+    let texture = ctx.load_texture(MARK_ID, pixels, TextureOptions::LINEAR);
     ctx.data_mut(|data| data.insert_temp(id, texture.clone()));
     Some(texture)
 }

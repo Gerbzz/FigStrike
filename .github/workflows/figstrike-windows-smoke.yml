@@ -1,0 +1,66 @@
+name: FigStrike Windows bounded smoke
+
+on:
+  push:
+    branches: [feature/figstrike-workflow-evidence]
+    paths:
+      - .github/workflows/figstrike-windows-smoke.yml
+      - scripts/ci_windows_workflow.py
+      - scripts/ci_windows_desktop.ps1
+      - scripts/ci-windows-requirements.txt
+      - .github/figstrike-smoke.json
+      - apps/**
+      - crates/**
+      - Cargo.toml
+      - Cargo.lock
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-editor-and-document:
+    if: github.repository == 'Gerbzz/FigStrike'
+    runs-on: windows-2025
+    timeout-minutes: 55
+    env:
+      CARGO_BUILD_JOBS: '2'
+      CARGO_INCREMENTAL: '0'
+      CARGO_PROFILE_DEV_DEBUG: '0'
+      CARGO_PROFILE_TEST_DEBUG: '0'
+      RUST_BACKTRACE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install small pinned PDF inspector
+        shell: pwsh
+        run: |
+          python -m pip install --no-deps --only-binary=:all: --require-hashes -r scripts/ci-windows-requirements.txt
+      - name: Build complete native editor and CLI
+        shell: pwsh
+        run: cargo build --locked -p figcraft -p figcraft-cli
+      - name: Create, reopen and export synthetic design documents
+        shell: pwsh
+        run: |
+          python scripts/ci_windows_workflow.py target/debug/figcraft-cli.exe "$env:RUNNER_TEMP/figstrike-windows"
+          if ($LASTEXITCODE -ne 0) { throw 'Windows design workflow failed' }
+      - name: Test Windows CLI integration
+        shell: pwsh
+        run: cargo test --locked -p figcraft-cli --tests
+      - name: Launch the native editor with the saved design and attempt capture
+        shell: pwsh
+        run: ./scripts/ci_windows_desktop.ps1 -Executable target/debug/figcraft.exe -Project "$env:RUNNER_TEMP/figstrike-windows/created.figcraft" -Output "$env:RUNNER_TEMP/figstrike-windows"
+      - name: Preserve only small Windows design evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: figstrike-windows-evidence
+          path: |
+            ${{ runner.temp }}/figstrike-windows/created.png
+            ${{ runner.temp }}/figstrike-windows/ridgeline.png
+            ${{ runner.temp }}/figstrike-windows/editor.png
+            ${{ runner.temp }}/figstrike-windows/desktop-status.json
+            ${{ runner.temp }}/figstrike-windows/verification.json
+          retention-days: 1
+          if-no-files-found: ignore

@@ -28,7 +28,7 @@ FigStrike is an independent early-alpha application built on a complete Rust des
 | Document and export | A [Windows workflow](https://github.com/Gerbzz/FigStrike/actions/runs/38746168229) created and reopened a `.figcraft` file, exported PNG/SVG/PDF with selectable PDF text, rendered the 349-node Ridgeline example, and passed 17 CLI integration tests. |
 | Linux first run | A [hosted Ubuntu run](https://github.com/Gerbzz/FigStrike/actions/runs/38739905782) launched the real first-run window with the approved PWDS mark. |
 
-These checks use synthetic files. Representative external Figma files, multi-user collaboration, broader pointer editing, high-DPI behavior, macOS and browser builds, and installers still need validation. **No public installer or release is offered here yet.** The native-edit screenshot above was captured from work in [draft PR #1](https://github.com/Gerbzz/FigStrike/pull/1); that application code has not been merged into `main`. Read the [verification ledger](docs/FIGSTRIKE_STATUS.md) for the current scope and gaps.
+These checks use synthetic files. Representative external Figma files, multi-user collaboration, broader pointer editing, high-DPI behavior, macOS and browser builds, and installers still need validation. **No public installer or release is offered here yet.** The native-edit screenshot above was captured from the code reviewed in [PR #1](https://github.com/Gerbzz/FigStrike/pull/1). Read the [verification ledger](docs/FIGSTRIKE_STATUS.md) for the current scope and gaps.
 
 ## Build from source
 
