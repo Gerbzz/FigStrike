@@ -1,0 +1,97 @@
+name: FigStrike component copy acceptance
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/figstrike-component-copy.yml
+      - scripts/ci_component_copy.py
+      - crates/**
+      - apps/**
+      - plugins/**
+      - xtask/**
+      - Cargo.toml
+      - Cargo.lock
+      - rustfmt.toml
+      - clippy.toml
+      - .cargo/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: component-copy-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  full-ci:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      CARGO_BUILD_JOBS: '2'
+      CARGO_INCREMENTAL: '0'
+      CARGO_PROFILE_DEV_DEBUG: '0'
+      CARGO_PROFILE_TEST_DEBUG: '0'
+      CARGO_TARGET_DIR: ${{ runner.temp }}/figstrike-component-copy-target
+      RUST_BACKTRACE: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+          targets: wasm32-unknown-unknown
+      - name: Install native build libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libxkbcommon-dev libxkbcommon-x11-dev libwayland-dev libx11-dev libxrandr-dev libxi-dev \
+            libgl1-mesa-dev libgtk-3-dev libudev-dev libasound2-dev
+      - name: Record exact tested head
+        run: git rev-parse HEAD
+      - name: Check native verifier syntax
+        run: python3 -m py_compile scripts/ci_component_copy.py
+      - name: Run component regression suite
+        run: cargo test --locked -p figcraft-engine --lib components_behaviour_tests
+      - name: Run complete repository CI gate
+        run: cargo xtask ci
+
+  hosted-native:
+    runs-on: windows-2025
+    timeout-minutes: 55
+    env:
+      CARGO_BUILD_JOBS: '2'
+      CARGO_INCREMENTAL: '0'
+      CARGO_PROFILE_DEV_DEBUG: '0'
+      CARGO_PROFILE_TEST_DEBUG: '0'
+      CARGO_TARGET_DIR: ${{ runner.temp }}/figstrike-component-copy-target
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Record exact tested head
+        shell: pwsh
+        run: git rev-parse HEAD
+      - name: Check native verifier syntax
+        shell: pwsh
+        run: python -m py_compile scripts/ci_component_copy.py
+      - name: Build native editor
+        shell: pwsh
+        run: cargo build --locked -p figcraft
+      - name: Verify component copies through the running native editor
+        shell: pwsh
+        run: |
+          python scripts/ci_component_copy.py "$env:CARGO_TARGET_DIR/debug/figcraft.exe" "$env:RUNNER_TEMP/figstrike-component-copy-evidence"
+          if ($LASTEXITCODE -ne 0) { throw 'Hosted native component-copy acceptance failed' }
+      - name: Preserve hosted evidence (separate from Room acceptance)
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: figstrike-component-copy-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/figstrike-component-copy-evidence/
+          retention-days: 2
+          if-no-files-found: warn
