@@ -1,0 +1,28 @@
+{
+  "app": "FigStrike",
+  "created_utc": "2026-10-23",
+  "source": "Original SVG artwork created for this application at the user's request.",
+  "method": "Original manually authored SVG paths/polygons; geometry-only, two solid colors; no gradients, shadows, text, animal, embedded bitmap, stock artwork, or external references.",
+  "description": "An editable interface panel over an offset frame, with a transparent cursor cutout; not a Figma-derived mark.",
+  "renderer": "Inkscape 1.4 (e7c3feb100, 2024-10-09), native SVG export at 1024 x 1024 pixels, transparent background opacity 0; no raster image editing.",
+  "license": "MIT OR Apache-2.0",
+  "scope": "Product artwork in the README. Existing publisher marks, screenshots, runtime artwork, and packaged icons remain unchanged.",
+  "assets": {
+    "svg": {
+      "path": "assets/branding/FigStrike-logo.svg",
+      "sha256": "baeaf2b40b318896f43773057fcfe510a0a49928ac49e59722fc42f8f46f9833",
+      "git_blob_sha": "32eb162c0be2cfa7f046c4a5c37394d5e3e98f59"
+    },
+    "png": {
+      "path": "assets/branding/FigStrike-logo.png",
+      "sha256": "c6d5a5303bd3a45486098c0d2370373efb66a7d89aed6303047e830f78c1485d",
+      "git_blob_sha": "3e21971e70d878e9ca52d38739d2e09c89f96bed",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "decoded_rgba_sha256": "b92d856e5662e0350e5dbdcce30ab7864ff1e8db7f36128fe959458f65111754"
+    }
+  }
+}

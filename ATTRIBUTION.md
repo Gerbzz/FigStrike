@@ -11,6 +11,8 @@ MIT OR Apache-2.0. No third-party icon sets are used.
 
 | Path | Author | Source | Licence | Notes |
 |---|---|---|---|---|
+| `assets/branding/FigStrike-logo.svg` | FigStrike contributors (original vector artwork) | Original work; see `assets/branding/FigStrike-logo.provenance.json` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) | README product mark; existing runtime and packaging unchanged |
+| `assets/branding/FigStrike-logo.png` | FigStrike contributors (original vector artwork) | Original work; see `assets/branding/FigStrike-logo.provenance.json` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) | README product mark; existing runtime and packaging unchanged |
 | `assets/app-icon/` (all files: `figcraft.svg`, `figcraft-small.svg`, `figcraft-*.png`, `figcraft.ico`, `hicolor/`) | The project owner (engraving-style drawing, vectorised) | Original work, see [`assets/app-icon/README.md`](assets/app-icon/README.md); derived files rendered by `cargo xtask icon` | MIT OR Apache-2.0, [`assets/app-icon/LICENSE.txt`](assets/app-icon/LICENSE.txt) | FigCraft app icon (chameleon) |
 | `assets/branding/PWDS-logo.png` | Pro WebDev Solutions | Existing approved mark from `Gerbzz/PWDS-Strike-Launcher`, copied byte for byte | Separate PWDS brand terms in [`assets/branding/LICENSE-brand.txt`](assets/branding/LICENSE-brand.txt) | FigStrike home and About only; SHA-256 `B4C19554261C06EFCA0EE81879BC9CCCAFBEF7FDE84E92328354324E39670C18` |
 | `docs/images/` (all screenshots and exports: `shot-*.png`, `art-*.png`) | FigCraft contributors | Screenshots of FigCraft showing synthetic demo documents made in FigCraft, and PNG exports of those documents by FigCraft's renderer | MIT OR Apache-2.0 | No third-party artwork |
