@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="assets/branding/FigStrike-logo.png" alt="FigStrike product logo" width="128" height="128">
+</p>
+
+<p align="center">
   <img src="assets/branding/PWDS-logo.png" alt="PWDS publisher mark" width="120">
 </p>
 <p align="center"><strong>Published by PWDS</strong></p>
@@ -58,3 +62,7 @@ These checks use synthetic files. Representative external Figma files, multi-use
 The full application foundation is pinned to [FigCraft commit `102404e8c3d23d86c3490c1a6beff3202bb73e25`](https://github.com/storytold/figcraft/commit/102404e8c3d23d86c3490c1a6beff3202bb73e25). FigStrike is an independent modified fork. The original software copyright, [MIT](LICENSE-MIT) and [Apache-2.0](LICENSE-APACHE) licenses, and [NOTICE](NOTICE) remain; images and other assets are credited in [ATTRIBUTION.md](ATTRIBUTION.md). The inherited permissively licensed chameleon app icon is temporary and is not the FigStrike mark.
 
 FigStrike is published by PWDS. The PWDS mark has [separate brand terms](assets/branding/LICENSE-brand.txt). FigStrike is not affiliated with or endorsed by ArtCraft or Figma.
+
+## Product artwork
+
+The FigStrike product mark above has an original [SVG master](assets/branding/FigStrike-logo.svg) and matching PNG. [Asset provenance](assets/branding/FigStrike-logo.provenance.json) records how it was created and the exact file hashes. The PWDS publisher artwork and inherited software credits are unchanged. Existing screenshots retain the artwork visible in their original captured builds.
