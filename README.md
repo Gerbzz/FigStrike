@@ -16,9 +16,20 @@ FigStrike is an independent early-alpha application built on a complete Rust des
 
 ## Native UI preview
 
+![FigStrike current native editor with a repository-generated synthetic fixture](docs/evidence/figstrike-windows-native-edited-20261023.png)
+
+*Unmodified 1024×768 native frame captured on a standard hosted Windows 2025 runner on 23 October 2026 in [successful run 40019695994](https://github.com/Gerbzz/FigStrike/actions/runs/40019695994), exact source `18bbdce4af399c508612ecbad0a61e794ba710b9`. The real native design editor after keyboard-editing a rectangle, saving, and reopening the synthetic document. [Source, hashes and limits](docs/evidence/figstrike-windows-native-edited-20261023.provenance.json).*
+
+Synthetic frame/rectangle workflow only; broader pointer editing, collaboration and external document compatibility remain unverified. Runtime and packaged icons are unchanged.
+
+<details>
+<summary>Earlier native capture and its original provenance</summary>
+
 ![FigStrike native Windows editor with a saved frame and rectangle](docs/evidence/figstrike-windows-native-edited.png)
 
 *The actual FigStrike desktop editor captured on 2026-10-15 on a hosted Windows 2025 runner. A selected rectangle was moved with the UI's ArrowRight shortcut, saved as `.figcraft`, and reopened in a second native process. [See the exact before/after values](docs/evidence/figstrike-windows-native-edit-verification.json) and [the green run](https://github.com/Gerbzz/FigStrike/actions/runs/38760286187).*
+
+</details>
 
 ## Features
 
@@ -55,7 +66,7 @@ The build commands produce source builds, not signed or packaged installers. On 
 | Document and export | A [Windows workflow](https://github.com/Gerbzz/FigStrike/actions/runs/38746168229) created and reopened a `.figcraft` file, exported PNG/SVG/PDF with selectable PDF text, rendered the 349-node Ridgeline example, and passed 17 CLI integration tests. |
 | Linux first run | A [hosted Ubuntu run](https://github.com/Gerbzz/FigStrike/actions/runs/38739905782) launched the real first-run window with the approved PWDS mark. |
 
-These checks use synthetic files. Representative external Figma files, multi-user collaboration, broader pointer editing, high-DPI behavior, macOS and browser builds, and installers still need validation. **No public installer or release is offered here yet.** The native-edit screenshot above was captured from the code reviewed in [PR #1](https://github.com/Gerbzz/FigStrike/pull/1). Read the [verification ledger](docs/FIGSTRIKE_STATUS.md) for the current scope and gaps.
+These checks use synthetic files. Representative external Figma files, multi-user collaboration, broader pointer editing, high-DPI behavior, macOS and browser builds, and installers still need validation. **No public installer or release is offered here yet.** The earlier native-edit capture retained in the historical block was produced from code reviewed in [PR #1](https://github.com/Gerbzz/FigStrike/pull/1). The new 2026-10-23 basic rectangle edit/save/reopen proof comes from [PR #5](https://github.com/Gerbzz/FigStrike/pull/5), source `18bbdce4af399c508612ecbad0a61e794ba710b9`, in [run 40019695994](https://github.com/Gerbzz/FigStrike/actions/runs/40019695994). Read the [verification ledger](docs/FIGSTRIKE_STATUS.md) for the current scope and gaps.
 
 ## Credits and licenses
 
