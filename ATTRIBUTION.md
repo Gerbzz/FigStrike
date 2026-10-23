@@ -11,6 +11,7 @@ MIT OR Apache-2.0. No third-party icon sets are used.
 
 | Path | Author | Source | Licence | Notes |
 |---|---|---|---|---|
+| `docs/evidence/figstrike-windows-native-edited-20261023.png` | FigStrike contributors | [Successful hosted run 40019695994](https://github.com/Gerbzz/FigStrike/actions/runs/40019695994), source `18bbdce4af399c508612ecbad0a61e794ba710b9`; unmodified provenance-listed native frame | MIT OR Apache-2.0 | Synthetic native UI; adjacent provenance; no runtime-logo replacement |
 | `assets/branding/FigStrike-logo.svg` | FigStrike contributors (original vector artwork) | Original work; see `assets/branding/FigStrike-logo.provenance.json` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) | README product mark; existing runtime and packaging unchanged |
 | `assets/branding/FigStrike-logo.png` | FigStrike contributors (original vector artwork) | Original work; see `assets/branding/FigStrike-logo.provenance.json` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) | README product mark; existing runtime and packaging unchanged |
 | `assets/app-icon/` (all files: `figcraft.svg`, `figcraft-small.svg`, `figcraft-*.png`, `figcraft.ico`, `hicolor/`) | The project owner (engraving-style drawing, vectorised) | Original work, see [`assets/app-icon/README.md`](assets/app-icon/README.md); derived files rendered by `cargo xtask icon` | MIT OR Apache-2.0, [`assets/app-icon/LICENSE.txt`](assets/app-icon/LICENSE.txt) | FigCraft app icon (chameleon) |

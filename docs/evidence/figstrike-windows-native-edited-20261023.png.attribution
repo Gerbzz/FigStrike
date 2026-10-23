@@ -1,0 +1,8 @@
+asset:        figstrike-windows-native-edited-20261023.png
+title:        FigStrike current native editor screenshot
+author:       FigStrike contributors
+source:       https://github.com/Gerbzz/FigStrike/actions/runs/40019695994
+license:      MIT OR Apache-2.0
+license-file: LICENSE-MIT
+added:        2026-10-23
+notes:        Unmodified app-native screenshot at 18bbdce4af399c508612ecbad0a61e794ba710b9. The real native design editor after keyboard-editing a rectangle, saving, and reopening the synthetic document. Synthetic frame/rectangle workflow only; broader pointer editing, collaboration and external document compatibility remain unverified. Runtime and packaged icons are unchanged. Exact hashes: docs/evidence/figstrike-windows-native-edited-20261023.provenance.json.

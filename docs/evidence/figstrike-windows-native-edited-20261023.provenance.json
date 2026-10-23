@@ -1,0 +1,41 @@
+{
+  "app": "FigStrike",
+  "asset": "docs/evidence/figstrike-windows-native-edited-20261023.png",
+  "source_head": "18bbdce4af399c508612ecbad0a61e794ba710b9",
+  "run_id": 40019695994,
+  "run_url": "https://github.com/Gerbzz/FigStrike/actions/runs/40019695994",
+  "artifact_id": 12531146497,
+  "artifact_zip_sha256": "d6ddbc5bd273b504f80572035a0d5a9d765de96e425983b0c24f2629d21ba231",
+  "original_artifact_image_path": "native-edited.png",
+  "capture_method": "App-native ui.screenshot after keyboard edit, save and reopen acceptance.",
+  "environment": "Standard hosted Windows 2025 runner",
+  "description": "The real native design editor after keyboard-editing a rectangle, saving, and reopening the synthetic document.",
+  "limitations": "Synthetic frame/rectangle workflow only; broader pointer editing, collaboration and external document compatibility remain unverified. Runtime and packaged icons are unchanged.",
+  "unmodified": true,
+  "sha256": "e1327a8ae274f2521324135e5bc4ebf955f49c4096c6f2eadd80680cdcd194ca",
+  "git_blob_sha": "67aa733878a3c0fab1bab826606769ede0614097",
+  "bytes": 66017,
+  "dimensions": [
+    1024,
+    768
+  ],
+  "mode": "RGBA",
+  "decoded_rgba_sha256": "118cd65d2e17974bdef924085861f98dd6fd79d4dd01f8a0ff7232d1425d8a81",
+  "full_unique_colors": 445,
+  "original_artifact_provenance": {
+    "repository": "Gerbzz/FigStrike",
+    "source_head": "18bbdce4af399c508612ecbad0a61e794ba710b9",
+    "run_id": "40019695994",
+    "run_attempt": "1",
+    "captured_at_utc": "2026-10-23T20:50:05.3893024Z",
+    "method": "Running FigStrike native editor ui.screenshot after original keyboard edit, save and reopen acceptance",
+    "fixture": "Repository-generated synthetic test material; no user project or capture device opened",
+    "images": [
+      {
+        "file": "native-edited.png",
+        "bytes": 66017,
+        "sha256": "e1327a8ae274f2521324135e5bc4ebf955f49c4096c6f2eadd80680cdcd194ca"
+      }
+    ]
+  }
+}
