@@ -14,6 +14,12 @@ FigStrike is an independent early-alpha application built on a complete Rust des
 
 **Status:** early alpha, available as a source build. No public installer or release is offered here yet.
 
+## Rust direction and migration status
+
+- **Target:** Rust-native interface design and prototyping, extending the selected FigCraft foundation rather than rewriting an already-Rust application.
+- **Current implementation:** The [Cargo workspace](Cargo.toml) and [desktop entry point](apps/figcraft/src/main.rs) already use Rust, with the selected document engine, native editor, CLI, browser frontend and collaboration-service source.
+- **Remaining migration:** Continue integration and runtime acceptance on this base. Representative external files, collaboration, broader pointer editing, browser/platform builds and installers remain unverified; source-present features are not completed product acceptance.
+
 ## Native UI preview
 
 ![FigStrike current native editor with a repository-generated synthetic fixture](docs/evidence/figstrike-windows-native-edited-20261023.png)
