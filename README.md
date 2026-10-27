@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/branding/FigStrike-logo.png" alt="FigStrike product logo" width="128" height="128">
+  <img src="assets/branding/FigStrike-logo.svg" alt="FigStrike product logo" width="128" height="128">
 </p>
 
 <p align="center">
